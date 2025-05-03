@@ -1,6 +1,8 @@
 # CSCI4100-Group-Project
 
-This project solves a basic course scheduling problem using graph coloring and room assignment. It makes sure no conflicting courses happen at the same time and avoids double-booking rooms. Pretty useful if you’re trying to schedule finals or build a class timetable.
+The objective of this project is to use Graph Coloring to solve scheduling and resource allocation problems. By representing tasks or resources as nodes and conflicts 
+(like overlapping times or shared resources) as edges, we can assign colors (or distinct resources) to each node to ensure no conflicts. Assign the minimum color to 
+each node that doesn’t conflict with its neighbors.
 
 ## Group Members
 
