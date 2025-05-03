@@ -4,7 +4,7 @@ This project solves a basic course scheduling problem using graph coloring and r
 
 ## Group Members
 
-Logan Johnson
+Logan Johnson  
 Kyle Peterson
 
 ## How It Works
