@@ -1,45 +1,55 @@
 # Import necessary functions for scheduling:
-from greedy_coloring import greedy_coloring
+from color_graph import color_graph
 from assign_rooms import assign_rooms
 from print_schedule import print_schedule
 
+# Helper: Convert edge list to adjacency list
+def build_adjacency_list(edges):
+    graph = {}
+    for u, v in edges:
+        graph.setdefault(u, []).append(v)
+        graph.setdefault(v, []).append(u)
+    return graph
+
 # Main execution block
 if __name__ == "__main__":
-    # Define the list of courses
-    courses = ['C1', 'C2', 'C3', 'C4', 'C5', 'C6']
-
-    # Define the conflict graph where edges represent scheduling conflicts between courses
-    conflict_graph = {
-        'C1': ['C2', 'C3'],
-        'C2': ['C1', 'C4'],
-        'C3': ['C1', 'C5'],
-        'C4': ['C2', 'C6'],
-        'C5': ['C3', 'C6'],
-        'C6': ['C4', 'C5']
-    }
+    # Define conflict edges
+    conflict_edges = [
+        ('C1', 'C2'),  # Same Professor
+        ('C1', 'C3'),  # Same Room
+        ('C2', 'C4'),  # Same Time Slot
+        ('C3', 'C5'),  # Same Students
+        ('C4', 'C6'),  # Same Time Slot
+        ('C5', 'C6')   # Same Professor
+    ]
 
     # List of available rooms
     rooms = ['101', '102', '103', '104']
 
-    # Step 1: Assign time slots to courses using greedy coloring to avoid conflicts
-    time_slot_assignment = greedy_coloring(conflict_graph)
+    # Build adjacency list
+    conflict_graph = build_adjacency_list(conflict_edges)
 
-    # Step 2: Assign rooms to courses based on their time slots
+    # Assign time slots using backtracking
+    time_slot_assignment = color_graph(conflict_graph)
+
+    # Assign rooms
     final_schedule = assign_rooms(time_slot_assignment, rooms)
 
-    # Step 3: Print the initial course schedule
+    # Print initial schedule
     print("Initial Schedule:")
     print_schedule(final_schedule)
 
-    # Add a new course C7 and define its conflicts
-    print("\nUpdated Schedule with C7:")
-    conflict_graph['C7'] = ['C1', 'C4']
-    conflict_graph['C1'].append('C7')
-    conflict_graph['C4'].append('C7')
+    # Add new course C7 with conflicts
+    conflict_edges.extend([
+        ('C7', 'C1'),
+        ('C7', 'C4')
+    ])
+    conflict_graph = build_adjacency_list(conflict_edges)
 
-    # Recalculate time slots and room assignments with the updated graph
-    time_slot_assignment = greedy_coloring(conflict_graph)
+    # Reassign time slots and rooms
+    time_slot_assignment = color_graph(conflict_graph)
     final_schedule = assign_rooms(time_slot_assignment, rooms)
 
-    # Print the updated schedule including the new course
+    # Print final schedule
+    print("\nUpdated Schedule with C7:")
     print_schedule(final_schedule)
