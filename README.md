@@ -2,6 +2,11 @@
 
 This project solves a basic course scheduling problem using graph coloring and room assignment. It makes sure no conflicting courses happen at the same time and avoids double-booking rooms. Pretty useful if you’re trying to schedule finals or build a class timetable.
 
+## Group Members
+
+Logan Johnson
+Kyle Peterson
+
 ## How It Works
 
 There are 4 Python files in this project:
